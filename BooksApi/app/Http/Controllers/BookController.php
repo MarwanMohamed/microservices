@@ -6,6 +6,7 @@ use App\Book;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Services\Publisher;
 
 class BookController extends Controller
 {
@@ -47,7 +48,9 @@ class BookController extends Controller
 
         $this->validate($request, $rules);
 
+        $publisher = new Publisher;
         $book = Book::create($request->all());
+        $publisher->publish($book);
 
         return $this->successResponse($book, Response::HTTP_CREATED);
     }
