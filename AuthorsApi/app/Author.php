@@ -15,5 +15,6 @@ class Author extends Model
         'name',
         'gender',
         'country',
+        'desc'
     ];
 }
