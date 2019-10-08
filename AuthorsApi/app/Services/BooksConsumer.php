@@ -11,11 +11,11 @@ class BooksConsumer
 {
 	public function consume() 
 	{
-		$host = 'eagle-01.rmq.cloudamqp.com'; 
-		$user = 'qmftefgy'; 
-		$pass = 'WsT0_0QNnIuMKHotuqG01uNE8RUNi6mS'; 
+		$host = 'crocodile-01.rmq.cloudamqp.com'; 
+		$user = 'vwoouckh'; 
+		$pass = 'ThefGOzsd-mHLs5ra_R8Xqrm2bhZrF5v'; 
 		$port = '5672'; 
-		$vhost = 'qmftefgy';
+		$vhost = 'vwoouckh';
 		$exchange = 'publish_book';
 		$queue = 'publish_book';
 		$connection = new AMQPStreamConnection($host, $port, $user, $pass, $vhost);
@@ -27,7 +27,7 @@ class BooksConsumer
 		$channel->exchange_declare($exchange, AMQPExchangeType::DIRECT, false, true, false);
 		$channel->queue_bind($queue, $exchange);
 
-		$callback = function ($msg) {
+		$callback = function($msg) { // here to test the queue working successfully
 		   Author::create(['name' => 'test name', 'country' => 'test co' , 'gender' => 'male', 'desc' => $msg->body]);
 		};
 

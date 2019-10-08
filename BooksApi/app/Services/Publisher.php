@@ -9,11 +9,11 @@ use PhpAmqpLib\Message\AMQPMessage;
 class Publisher 
 {
 	public function publish($book, $queue) {
-		$host = 'eagle-01.rmq.cloudamqp.com'; 
-		$user = 'qmftefgy'; 
-		$pass = 'WsT0_0QNnIuMKHotuqG01uNE8RUNi6mS'; 
+		$host = 'crocodile-01.rmq.cloudamqp.com'; 
+		$user = 'vwoouckh'; 
+		$pass = 'ThefGOzsd-mHLs5ra_R8Xqrm2bhZrF5v'; 
 		$port = '5672'; 
-		$vhost = 'qmftefgy';
+		$vhost = 'vwoouckh';
 		$exchange = $queue;
 		$connection = new AMQPStreamConnection($host, $port, $user, $pass, $vhost);
 		$channel = $connection->channel();
@@ -29,7 +29,7 @@ class Publisher
 		    // 'title' => $book->title,
 		    // 'description' => $book->description,
 		    // 'price' => $book->price,
-		    'test' => 'hHello world'
+		    'queue' => $queue
 		]);
 
 		$message = new AMQPMessage($messageBody, array('content_type' => 'application/json', 'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT));
