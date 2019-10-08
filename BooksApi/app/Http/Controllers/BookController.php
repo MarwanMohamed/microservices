@@ -48,9 +48,10 @@ class BookController extends Controller
 
         $this->validate($request, $rules);
 
-        $publisher = new Publisher;
         $book = Book::create($request->all());
-        $publisher->publish($book);
+        $publisher = new Publisher;
+        $publisher->publish($book, 'publish_book');
+        $publisher->publish(['user' => 1], 'notification');
 
         return $this->successResponse($book, Response::HTTP_CREATED);
     }

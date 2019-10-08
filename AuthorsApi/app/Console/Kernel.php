@@ -24,6 +24,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //
+        $schedule->call(function () {
+            (new \App\Services\NotificationsConsumer())->consume();
+        })->everyMinute();
+
+        $schedule->call(function () {
+            (new \App\Services\BooksConsumer())->consume();
+        })->everyMinute();
     }
 }

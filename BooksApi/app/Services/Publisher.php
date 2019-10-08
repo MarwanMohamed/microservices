@@ -1,7 +1,5 @@
 <?php
 
-// require dirname(__DIR__). '/vendor/autoload.php';
-
 namespace App\Services;
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
@@ -10,15 +8,13 @@ use PhpAmqpLib\Message\AMQPMessage;
 
 class Publisher 
 {
-
-	public function publish($book) {
+	public function publish($book, $queue) {
 		$host = 'eagle-01.rmq.cloudamqp.com'; 
 		$user = 'qmftefgy'; 
 		$pass = 'WsT0_0QNnIuMKHotuqG01uNE8RUNi6mS'; 
 		$port = '5672'; 
 		$vhost = 'qmftefgy';
-		$exchange = 'subscribers';
-		$queue = 'publish_book';
+		$exchange = $queue;
 		$connection = new AMQPStreamConnection($host, $port, $user, $pass, $vhost);
 		$channel = $connection->channel();
 
@@ -30,15 +26,14 @@ class Publisher
 
 
 		$messageBody = json_encode([
-		    'name' => $book->title,
-		    'email' => $book->description,
-		    'price' => $book->price,
+		    // 'title' => $book->title,
+		    // 'description' => $book->description,
+		    // 'price' => $book->price,
+		    'test' => 'hHello world'
 		]);
 
 		$message = new AMQPMessage($messageBody, array('content_type' => 'application/json', 'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT));
 		$channel->basic_publish($message, $exchange);
-
-		echo "finished publishing to queue " . $queue . PHP_EOL;
 
 		$channel->close();
 		$connection->close();

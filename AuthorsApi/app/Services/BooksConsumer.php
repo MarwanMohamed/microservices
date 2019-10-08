@@ -7,7 +7,7 @@ use PhpAmqpLib\Exchange\AMQPExchangeType;
 use PhpAmqpLib\Message\AMQPMessage;
 use App\Author;
 
-class Consumer 
+class BooksConsumer 
 {
 	public function consume() 
 	{
@@ -16,7 +16,7 @@ class Consumer
 		$pass = 'WsT0_0QNnIuMKHotuqG01uNE8RUNi6mS'; 
 		$port = '5672'; 
 		$vhost = 'qmftefgy';
-		$exchange = 'subscribers';
+		$exchange = 'publish_book';
 		$queue = 'publish_book';
 		$connection = new AMQPStreamConnection($host, $port, $user, $pass, $vhost);
 		$channel = $connection->channel();
@@ -39,7 +39,7 @@ class Consumer
 		    $channel->close();
 		    $connection->close();
 		}
-		register_shutdown_function('shutdown', $channel, $connection);
+		// register_shutdown_function('shutdown', $channel, $connection);
 
 		while ($channel ->is_consuming()) {
 		    $channel->wait();

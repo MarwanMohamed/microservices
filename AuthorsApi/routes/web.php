@@ -11,12 +11,6 @@
 |
 */
 
-$router->get('/les', function ()  {
-	
-	(new App\ServicesConsumer())->consume();
-});
-
-
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
